@@ -1,0 +1,40 @@
+- name: demo
+  hosts: localhost
+# The modules of azure container registry and azure container instance are available since Ansible version 2.5.
+# But if you are using Ansible version 2.4, you need to have below 2 lines to get modules of azure container registry and azure container instance from the playbook role of azure_preview_modules.
+#  roles:
+#    - azure.azure_preview_modules
+  vars:
+    resource_group: "gr_dirane_northeurope"
+    image_name: "simple_api"
+    container_image: "devops-app"
+    registry_name: "diranenortheurope"
+    registry_password: "EiX8KRy8RhqHj6QvUok5Be7p/PWQBOyG"
+    http_port: 80
+    image_tag: 34
+  environment:
+    AZURE_SUBSCRIPTION_ID: "36b0240b-e0ec-4aaa-9ad8-8f1cfb111552"
+    AZURE_CLIENT_ID: "7681a9c3-ef74-4da7-b21e-f8e493f44182"
+    AZURE_SECRET: "IfLPtPJY]+Ykzu4F?QWMAN.i5HA9FkE1"
+    AZURE_TENANT: "3724d8b4-237b-48ab-a465-26399c1cd64b"
+  tasks:
+#    - name: Login docker registry
+#      docker_login:
+#        registry: "{{ registry_name }}.azurecr.io"
+#        username: "{{ registry_name }}"
+#        password: "{{ registry_password }}"
+    - name: Create Azure Container Instance
+      azure_rm_containerinstance:
+        resource_group: "{{ resource_group }}"
+        name: "{{ image_name }}"
+        ip_address: public
+        ports:
+          - "{{ http_port }}"
+        registry_login_server: "{{ registry_name }}.azurecr.io"
+        registry_username: "{{ registry_name }}"
+        registry_password: "{{ registry_password }}"
+        containers:
+          - name: "{{ container_image }}"
+            ports:
+              - "{{ http_port }}"
+            image: "{{ registry_name }}.azurecr.io/{{ image_name }}:{{ image_tag }}"

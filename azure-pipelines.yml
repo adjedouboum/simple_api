@@ -21,16 +21,16 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - bash: |
-        ./install_ansible.sh
-#        sudo apt-add-repository ppa:ansible/ansible
-#        sudo apt -y update
-#        sudo apt -y install ansible
-      displayName: install ansible 
     - task: Docker@2
       displayName: Build and Push
       inputs:
-        containerRegistry: 'DiraneAzureContainerRegistry'
+        containerRegistry: 'DiraneAzureContainerRegistry_northeurope'
         repository: 'simple_api'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '**/Dockerfile'    
+    - bash: |
+        ./install_ansible.sh
+      displayName: install ansible 
+    - bash: |
+        ansible-playbook deploy-app.yml 
+      displayName: deploy app 
