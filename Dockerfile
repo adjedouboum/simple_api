@@ -1,10 +1,10 @@
-FROM python:2.7-alpine  
+FROM python:2.7-stretch
 MAINTAINER Dirane TAFEN <diranetafen@yahoo.com>
 
 ADD student_age.py /
 
-RUN apk update -y && \
-    apk install python-dev python3-dev libsasl2-dev python-dev libldap2-dev libssl-dev -y
+RUN apt-get update -y && \
+    apt-get install python-dev python3-dev libsasl2-dev python-dev libldap2-dev libssl-dev -y
 
 RUN pip install flask flask_httpauth flask_simpleldap python-dotenv 
 
