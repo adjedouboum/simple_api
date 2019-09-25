@@ -1,4 +1,4 @@
-FROM python:2.7-alpine  
+FROM python:2.7-stretch
 MAINTAINER Dirane TAFEN <diranetafen@yahoo.com>
 
 ADD student_age.py /
