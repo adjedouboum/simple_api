@@ -8,8 +8,8 @@
     resource_group: "gr_dirane_northeurope"
     image_name: "simple_api"
     container_image: "devops-app"
-    registry_name: "diranenortheurope"
-    registry_password: "EiX8KRy8RhqHj6QvUok5Be7p/PWQBOyG"
+    registry_name: "devopsappamedeeeurope"
+    registry_password: "f1j5nWPpg5VpHRHe=8y/wMtD1YgZShIS"
     http_port: 80
     image_tag: 34
   environment:
